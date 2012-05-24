@@ -1,0 +1,79 @@
+/* app css stylesheet */
+
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Condensed);
+
+body{
+  background-color: #222;
+}
+
+div[role="main"]{
+  padding-top: 40px;
+  background-color: #FFF;
+}
+
+.pad-top{
+  padding-top: 20px;
+}
+
+.divider-inverse {
+  background-color: #555 !important;
+  border-right: 1px solid #666 !important;
+}
+
+.btn img {
+  position:relative;
+  top:-2px;
+}
+
+#sign-in{
+  min-width: 250px;
+  max-width: 250px;
+  padding:25px;
+}
+
+#sign-in .login-btn-wrapper {
+  width: 120px;
+  text-align:center;
+  display:inline-block;
+}
+
+.brand{
+  text-indent: 51px;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  color: #FFFFFF !important;
+  font-size: 20px !important;
+}
+
+.brand small {
+  font-size: 10px;
+}
+
+.brand .title {
+  position:relative;
+  z-index: 100;
+}
+
+.brand .palette-icon{
+  display:block;
+  position:absolute;
+  width:80px;
+  height:52px;
+  top:-15px;
+  -moz-transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
+  -webkit-transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
+  -o-transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
+  -ms-transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
+  transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
+  background: transparent url(../img/color-palette-icon-80x64.png) no-repeat 0px 0px;
+}
+
+footer{
+  background-color: #222;
+  text-align:center;
+  padding:10px 0;
+}
+
+footer .copy{
+  color: #FFF;
+  font-family: 'Ubuntu Condensed', sans-serif;
+}
