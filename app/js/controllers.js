@@ -9,3 +9,10 @@ function AppCtrl($rootScope, $scope) {
   };
 }
 AppCtrl.$inject = ['$rootScope', '$scope'];
+
+function UserCtrl($scope, parseUserService) {
+  $scope.register = function() {
+    parseUserService.create();
+  };
+}
+UserCtrl.$inject = ['$scope','parseUser']

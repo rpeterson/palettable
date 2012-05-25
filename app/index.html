@@ -39,7 +39,9 @@
               <li class="active"><a href="#/">Home</a></li>
               <li><a href="#/about">About</a></li>
               <li class="divider-vertical visible-desktop"></li>
-
+              <li class="visible-desktop" ng-hide="requests401.length">
+                <div class="btn-group"></div>
+              </li>
               <li class="visible-desktop" ng-hide="requests401.length">
                 <div class="btn-group">
                   <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
