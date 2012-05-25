@@ -1,6 +1,6 @@
 /* app css stylesheet */
 
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Condensed);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed);
 
 body{
   background-color: #222;
@@ -25,21 +25,9 @@ div[role="main"]{
   top:-2px;
 }
 
-#sign-in{
-  min-width: 250px;
-  max-width: 250px;
-  padding:25px;
-}
-
-#sign-in .login-btn-wrapper {
-  width: 120px;
-  text-align:center;
-  display:inline-block;
-}
-
 .brand{
-  text-indent: 51px;
-  font-family: 'Ubuntu Condensed', sans-serif;
+  text-indent: 40px;
+  font-family: 'Ubuntu', sans-serif;
   color: #FFFFFF !important;
   font-size: 20px !important;
 }
@@ -65,6 +53,69 @@ div[role="main"]{
   -ms-transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
   transform: scale(1) rotate(-30deg) translate(0px, 0px) skew(0deg, 0deg);
   background: transparent url(../img/color-palette-icon-80x64.png) no-repeat 0px 0px;
+}
+
+#sign-in{
+  min-width: 250px;
+  max-width: 250px;
+  padding:25px;
+}
+
+#sign-in .login-btn-wrapper {
+  width: 120px;
+  text-align:center;
+  display:inline-block;
+}
+
+#my-account {
+  min-width: 300px;
+  max-width: 300px;
+}
+
+#my-account .span1 img{
+  margin-left: 5px;
+}
+
+#signUpModal form{
+  padding:0;
+  margin:0;
+}
+
+#signUpModal .modal-header h3{
+  text-align:center;
+  color: #444 !important;
+  font-size:2.2em;
+  font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+#signUpModal .modal-footer .btn {
+   padding:15px;
+   width: 25%;
+   font-size:18px;
+}
+
+#signUpModal .modal-footer, #signUpModal .modal-body {
+  text-align:center;
+}
+
+#signUpModal .modal-body {
+  padding-bottom: 0;
+}
+
+#signUpModal form input{
+  width: 80%;
+  font-size: 18px;
+  padding: 11px 10px;
+  margin: 0 auto;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 
 footer{

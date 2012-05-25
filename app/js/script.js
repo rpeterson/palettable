@@ -7,4 +7,9 @@ jQuery.noConflict();
   $('.dropdown-menu').find('form').click(function (e) {
     e.stopPropagation();
   });
+  $('#signUpModal').modal({
+    keyboard: false,
+    backdrop: true,
+    show: false
+  });
 })(jQuery);

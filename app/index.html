@@ -34,22 +34,27 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#/"><span class="palette-icon"></span><span class="title">palettable <small>v<span app-version></span></small></span></a>
-          <div class="nav-collapse pull-right">
+          <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#/">Home</a></li>
               <li><a href="#/about">About</a></li>
+            </ul>
+            <ul class="nav pull-right" ng-controller="UserCtrl">
               <li class="divider-vertical visible-desktop"></li>
-              <li class="visible-desktop" ng-hide="requests401.length">
-                <div class="btn-group"></div>
+              <li class="visible-desktop" ng-hide="isLoggedIn" ng-cloak>
+                <div class="btn btn-success" data-toggle="modal" href="#signUpModal">Sign Up</div>
               </li>
-              <li class="visible-desktop" ng-hide="requests401.length">
+              <li class="visible-desktop" ng-show="isLoggedIn" ng-cloak>
+                <button class="btn btn-danger" ng-click="logout()">Logout</button>
+              </li>
+              <li class="visible-desktop" ng-hide="isLoggedIn" ng-cloak>
                 <div class="btn-group">
                   <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
-                    <i class="icon-user icon-white"></i> Sign In
+                    <i class="icon-user icon-white"></i> Log In
                     <span class="divider-vertical divider-inverse"></span>
                     <span class="caret"></span>
                   </button>
-                  <ul id="sign-in" class="dropdown-menu" ng-controller="AppCtrl">
+                  <ul id="sign-in" class="dropdown-menu">
 
                     <form class="row-fluid" ng-submit="login(user)">
                       <h3>Login</h3>
@@ -62,7 +67,7 @@
                       <label class="checkbox">
                         <input type="checkbox"> Keep me logged in.
                       </label>
-                      <button type="submit" class="btn btn-primary">Sign In</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
 
                     <div class="divider"></div>
@@ -80,7 +85,7 @@
                 </div>
               </li>
 
-              <li class="visible-desktop" ng-show="requests401.length" syle="display:none;">
+              <li class="visible-desktop" ng-show="isLoggedIn" ng-cloak>
                 <div class="btn-group">
                   <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                     <i class="icon-user icon-white"></i> My Account
@@ -88,7 +93,18 @@
                     <span class="caret"></span>
                   </button>
                   <ul id="my-account" class="dropdown-menu">
-                    PROFILE WILL GO HERE
+                    <div class="row">
+                      <div class="span4">
+                        <div class="row">
+                          <div class="span1"><img ng-src="{{gravatar}}" /></div>
+                          <div class="span3">
+                            <h3>{{isLoggedIn.username}}</h3>
+                            <p>{{isLoggedIn.email}}
+                            <br/><small>Joined: {{isLoggedIn.createdAt | date:"MM/dd/yyyy @ h:mma"}}</small></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </ul>
                 </div>
               </li>
@@ -106,6 +122,35 @@
     <span class="copy">Copyright &copy; 2012 Palletable.net, All rights reserved.</span>
   </footer>
 
+  <div id="signUpModal" class="modal fade" ng-controller="UserCtrl">
+    <form ng-submit="register(newuser)">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Sign Up for Palettable</h3>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-error" ng-show="regErrMsg" ng-cloak>
+          <strong>Sorry:</strong>&nbsp;{{regErrMsg}}.
+        </div>
+        <div class="row-fluid">
+          <div class="input-prepend">
+            <input ng-model="newuser.email" id="email" class="search-query" size="8" type="text" placeholder="Email Address">
+          </div>
+          <div class="input-prepend">
+            <input ng-model="newuser.username" id="username" size="8" type="text" placeholder="Username">
+          </div>
+          <div class="input-prepend">
+            <input ng-model="newuser.password" id="password" size="8" type="password" placeholder="Password">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p><small>Signing up signifies that you have read and agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</small></p>
+        <button type="submit" class="btn btn-primary btn-success">Sign Up</button>
+      </div>
+    </form>
+  </div>
+
   <script src="js/libs/processing-1.3.6.min.js"></script>
   <script src="js/libs/jquery-1.7.1.min.js"></script>
   <script src="js/libs/bootstrap.min.js"></script>
@@ -113,6 +158,7 @@
   <script src="js/script.js"></script>
 
   <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-cookies.js"></script>
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
