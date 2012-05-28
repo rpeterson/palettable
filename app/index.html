@@ -39,15 +39,15 @@
               <li class="active"><a href="#/">Home</a></li>
               <li><a href="#/about">About</a></li>
             </ul>
-            <ul class="nav pull-right" ng-controller="UserCtrl">
+            <ul class="nav pull-right ng-cloak" ng-controller="UserCtrl" ng-show= "loaded" style="display:none;">
               <li class="divider-vertical visible-desktop"></li>
-              <li class="visible-desktop" ng-hide="isLoggedIn" ng-cloak>
+              <li class="visible-desktop ng-cloak" ng-hide="isLoggedIn">
                 <div class="btn btn-success" data-toggle="modal" href="#signUpModal">Sign Up</div>
               </li>
-              <li class="visible-desktop" ng-show="isLoggedIn" ng-cloak>
+              <li class="visible-desktop ng-cloak" ng-show="isLoggedIn">
                 <button class="btn btn-danger" ng-click="logout()">Logout</button>
               </li>
-              <li class="visible-desktop" ng-hide="isLoggedIn" ng-cloak>
+              <li class="visible-desktop ng-cloak" ng-hide="isLoggedIn">
                 <div class="btn-group">
                   <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                     <i class="icon-user icon-white"></i> Log In
@@ -85,7 +85,7 @@
                 </div>
               </li>
 
-              <li class="visible-desktop" ng-show="isLoggedIn" ng-cloak>
+              <li class="visible-desktop ng-cloak" ng-show="isLoggedIn">
                 <div class="btn-group">
                   <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                     <i class="icon-user icon-white"></i> My Account

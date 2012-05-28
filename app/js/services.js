@@ -115,17 +115,17 @@ angular.module('palettable.services', []).
       },
 
       logout: function(callback){
-        $cookieStore.remove(settings.get().cookie.name);
+        $cookieStore.remove(settings.get().session.cookie.name);
         callback();
       },
 
       store: function(data, callback){
-        $cookieStore.put(settings.get().cookie.name, data);
+        $cookieStore.put(settings.get().session.cookie.name, data);
         callback();
       },
 
       check: function(){
-        return $cookieStore.get();
+        return $cookieStore.get(settings.get().session.cookie.name);
       }
     };
   }, {$inject:['settings', '$cookieStore']});

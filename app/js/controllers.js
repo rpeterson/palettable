@@ -14,11 +14,13 @@ function AppCtrl($rootScope, $scope, $http) {
 }
 AppCtrl.$inject = ['$rootScope', '$scope'];
 
-function UserCtrl($scope, UserService) {
-
+function UserCtrl($scope, $defer, UserService) {
+  
+  $scope.loaded = false;
+  
   $scope.regErrMsg = false;
 
-  $scope.isLoggedIn = UserService.check();
+  $scope.isLoggedIn = false;
 
   $scope.gravatar = "";
 
@@ -66,6 +68,11 @@ function UserCtrl($scope, UserService) {
       $scope.isLoggedIn = UserService.check();
     });
   };
+  
+  $defer(function(){
+    $scope.isLoggedIn = UserService.check();
+    $scope.loaded = true;
+  }, 100);
 
 }
-UserCtrl.$inject = ['$scope', 'parseUser']
+UserCtrl.$inject = ['$scope', '$defer', 'parseUser']
