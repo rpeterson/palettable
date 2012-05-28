@@ -2,27 +2,27 @@
 
 /* Services */
 
-var parseUrl = "https://api.parse.com/1";
-var parseHeaders = {
-  "X-Parse-Application-Id": "",
-  "X-Parse-REST-API-Key": "",
-  "Content-Type": "application/json"
-};
-var sessionCookieName = 'UserCookie';
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
 angular.module('palettable.services', []).
   value('version', '0.1').
-  factory('parseObject', function($rootScope, $http) {
-      //options: { parameters: [par1, par2, par3], success: successCall, failure: failCall }
+  factory('settings', function($rootScope, $http){
+    var data = false;
+    $http.get('js/libs/config.json').then(function(results){
+        data = results.data;
+    });
+    return {
+      get: function(){
+        return data;
+      }
+    }
+  }).
+  factory('parseObject', function($rootScope, $http, settings, $cookieStore) {
       return {
         //Create a db object on server
         create: function(className, data, callback) {
           $http.post(
-            parseUrl+'/classes/'+className,
+            settings.get().parse.url+'/classes/'+className,
             data,
-            { headers: parseHeaders }
+            { headers: settings.get().parse.headers }
           ).success(function(response) {
             $rootScope.$apply(function() { callback(null, response); });
           }).error(function(response) {
@@ -32,8 +32,8 @@ angular.module('palettable.services', []).
         //Get a db object by id
         get: function(className, objectId, callback) {
           $http.get(
-            parseUrl+'/classes/'+className+'/'+objectId,
-            { headers: parseHeaders }
+            settings.get().parse.url+'/classes/'+className+'/'+objectId,
+            { headers: settings.get().parse.headers }
           ).success(function(response) {
             $rootScope.$apply(function() { callback(null, response); });
           }).error(function(response) {
@@ -42,10 +42,10 @@ angular.module('palettable.services', []).
         },
         //Get a list of db objects with query
         query: function(className, query, callback) {
-          var config = { headers: parseHeaders };
+          var config = { headers: settings.get().parse.headers };
           if (query) config.params = { where: query };
           $http.get(
-            parseUrl+'/classes/'+className,
+            settings.get().parse.url+'/classes/'+className,
             config
           ).success(function(response) {
             $rootScope.$apply(function() { callback(null, response); });
@@ -56,8 +56,8 @@ angular.module('palettable.services', []).
         //Remove a db object
         remove: function(className, objectId, callback) {
           $http['delete']( //['delete'] to get around using delete js keyword
-            parseUrl+'/classes/'+className+'/'+objectId,
-            { headers: parseHeaders }
+            settings.get().parse.url+'/classes/'+className+'/'+objectId,
+            { headers: settings.get().parse.headers }
           ).success(function(response) {
             $rootScope.$apply(function() { callback(null, response); });
           }).error(function(response) {
@@ -65,15 +65,15 @@ angular.module('palettable.services', []).
           });
         }
       };
-  }, {$inject:['$cookieStore']}).
-  factory('parseUser', function($rootScope, $http, $cookieStore) {
+  }, {$inject:['settings', '$cookieStore']}).
+  factory('parseUser', function($rootScope, $http, settings, $cookieStore) {
     return {
       //Create a user on server
       create: function(data, callback) {
         $http.post(
-          parseUrl+'/users',
+          settings.get().parse.url+'/users',
           data,
-          { headers: parseHeaders }
+          { headers: settings.get().parse.headers }
         ).success(function(response) {
           $rootScope.$apply(function() { callback(null, response); });
         }).error(function(response) {
@@ -83,8 +83,8 @@ angular.module('palettable.services', []).
       //Get a user by id
       get: function(objectId, callback) {
         $http.get(
-          parseUrl+'/users/'+objectId,
-          { headers: parseHeaders }
+          settings.get().parse.url+'/users/'+objectId,
+          { headers: settings.get().parse.headers }
         ).success(function(response) {
           $rootScope.$apply(function() { callback(null, response); });
         }).error(function(response) {
@@ -94,8 +94,8 @@ angular.module('palettable.services', []).
       //Remove a user
       remove: function(objectId, callback) {
         $http['delete']( //['delete'] to get around using delete js keyword
-          parseUrl+'/users/'+objectId,
-          { headers: parseHeaders }
+          settings.get().parse.url+'/users/'+objectId,
+          { headers: settings.get().parse.headers }
         ).success(function(response) {
           $rootScope.$apply(function() { callback(null, response); });
         }).error(function(response) {
@@ -105,8 +105,8 @@ angular.module('palettable.services', []).
 
       login: function(data, callback){
         $http.get(
-          parseUrl+'/login',
-          { headers: parseHeaders, params: data }
+          settings.get().parse.url + '/login',
+          { headers: settings.get().parse.headers, params: data }
         ).success(function(response) {
           callback(null, response);
         }).error(function(response) {
@@ -115,17 +115,17 @@ angular.module('palettable.services', []).
       },
 
       logout: function(callback){
-        $cookieStore.remove(sessionCookieName);
+        $cookieStore.remove(settings.get().cookie.name);
         callback();
       },
 
       store: function(data, callback){
-        $cookieStore.put(sessionCookieName, data);
+        $cookieStore.put(settings.get().cookie.name, data);
         callback();
       },
 
       check: function(){
-        return $cookieStore.get(sessionCookieName);
+        return $cookieStore.get();
       }
     };
-  }, {$inject:['$cookieStore']});
+  }, {$inject:['settings', '$cookieStore']});

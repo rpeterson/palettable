@@ -2,9 +2,15 @@
 
 /* Controllers */
 
-
-function AppCtrl($rootScope, $scope) {
-
+function AppCtrl($rootScope, $scope, $http) {
+  $('.dropdown-menu').find('form').click(function (e) {
+    e.stopPropagation();
+  });
+  $('#signUpModal').modal({
+    keyboard: false,
+    backdrop: true,
+    show: false
+  });
 }
 AppCtrl.$inject = ['$rootScope', '$scope'];
 
